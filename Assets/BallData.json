@@ -1,0 +1,219 @@
+"Stages":
+[
+  {
+    "Round" : 1,
+    "Answer":"Bow",
+    "BallInfo":
+    [
+    {
+      "Word":"Tray",
+      "Time":
+      {
+        "Start":4.5,
+        "End": 5.9
+      }
+    },
+    {
+      "Word":"Pray",
+      "Time":
+      {
+        "End": 7.1
+      }
+    },
+    {
+      "Word":"Game",
+      "Time":
+      {
+        "End": 8.3
+      }
+    },
+    {
+      "Word":"Bow",
+      "Time":
+      {
+        "End": 9.627
+      }
+    }
+  ]
+  },
+  {
+    "Round" : 2,
+    "Answer":"Lace",
+    "BallInfo":
+    [
+      {
+        "Word":"Globe",
+        "Time":
+        {
+          "Start":16.3,
+          "End": 17.6
+        }
+      },
+      {
+        "Word":"Bow",
+        "Time":
+        {
+          "End": 18.6
+        }
+      },
+      {
+        "Word":"Stone",
+        "Time":
+        {
+          "End": 19.8
+        }
+      },
+      {
+        "Word":"Lace",
+        "Time":
+        {
+          "End": 21.1
+        }
+      }
+    ]
+  },
+  {
+    "Round" : 3,
+    "Answer":"Broom",
+    "BallInfo":
+    [
+      {
+        "Word":"Night",
+        "Time":
+        {
+          "Start":27,
+          "End": 28.3
+        }
+      },
+      {
+        "Word":"Lime",
+        "Time":
+        {
+          "End": 29.4
+        }
+      },
+      {
+        "Word":"Bite",
+        "Time":
+        {
+          "End": 30.5
+        }
+      },
+      {
+        "Word":"Broom",
+        "Time":
+        {
+          "End": 31.7
+        }
+      }
+    ]
+  },
+  {
+    "Round" : 4,
+    "Answer":"Whale",
+    "BallInfo":
+    [
+      {
+        "Word":"Green",
+        "Time":
+        {
+          "Start":37.8,
+          "End": 38.8
+        }
+      },
+      {
+        "Word":"Tea",
+        "Time":
+        {
+          "End": 39.9
+        }
+      },
+      {
+        "Word":"Teach",
+        "Time":
+        {
+          "End": 41
+        }
+      },
+      {
+        "Word":"Whale",
+        "Time":
+        {
+          "End": 42.2
+        }
+      }
+    ]
+  },
+  {
+    "Round" : 5,
+    "Answer":"Kite",
+    "BallInfo":
+    [
+      {
+        "Word":"Groom",
+        "Time":
+        {
+          "Start":49.2,
+          "End": 50.06
+        }
+      },
+      {
+        "Word":"Spool",
+        "Time":
+        {
+          "End": 51.2
+        }
+      },
+      {
+        "Word":"Tube",
+        "Time":
+        {
+          "End": 52.3
+        }
+      },
+      {
+        "Word":"Kite",
+        "Time":
+        {
+          "End": 53.3
+        }
+      }
+    ]
+  },
+  {
+    "Round" : 6,
+    "Answer":"Bye",
+    "BallInfo":
+    [
+      {
+        "Word":"Bake",
+        "Time":
+        {
+          "Start":59.4,
+          "End": 100.1
+        }
+      },
+      {
+        "Word":"Cake",
+        "Time":
+        {
+          "End": 101.3
+        }
+      },
+      {
+        "Word":"Play",
+        "Time":
+        {
+          "End": 102.4
+        }
+      },
+      {
+        "Word":"Bye",
+        "Time":
+        {
+          "End": 103.4
+        }
+      }
+    ]
+  },
+]
