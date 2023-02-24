@@ -20,6 +20,12 @@ public class BallObject : MonoBehaviour
     {
         get { return _homePosition; }
     }
+
+    public void GetNext()
+    {
+        HelperFunctions.Log("Ball Data Changed");
+    }
+
     private void Awake()
     {
         _homePosition = transform.position;

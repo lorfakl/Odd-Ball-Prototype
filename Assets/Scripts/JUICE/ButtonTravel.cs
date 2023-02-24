@@ -4,11 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using Unity.VisualScripting;
+using Utilities.Events;
 
 public class ButtonTravel : MonoBehaviour
 {
     [SerializeField]
     Button _playButton;
+
+    [SerializeField]
+    GameEvent _playButtonPressed;
 
     [SerializeField]
     float _tweenTime;
@@ -32,7 +36,8 @@ public class ButtonTravel : MonoBehaviour
 
     private void ReturnToScale()
     {
-        gameObject.transform.DOScaleY(1f, _tweenTime / 2);
+        gameObject.transform.DOScaleY(1f, _tweenTime / 2).OnComplete(() => { _playButtonPressed.Raise(); });
+        
     }
 
 }
