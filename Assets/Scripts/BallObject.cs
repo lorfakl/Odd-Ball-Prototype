@@ -14,8 +14,8 @@ public class BallObject : MonoBehaviour
 
     Vector3 _homePosition;
     // Start is called before the first frame update
-
-    public SpriteRenderer Image { get; }
+    public BallInfo CurrentBallInfo { get; private set; }
+    public SpriteRenderer Image { get { return spriteRenderer; } }
     public Vector3 InitialPosition
     {
         get { return _homePosition; }
@@ -24,6 +24,9 @@ public class BallObject : MonoBehaviour
     public void GetNext()
     {
         HelperFunctions.Log("Ball Data Changed");
+        BallInfo b = BallHandler.DeQueue();
+        CurrentBallInfo = b;
+        Image.sprite = b.Image;
     }
 
     private void Awake()
@@ -46,4 +49,7 @@ public class BallObject : MonoBehaviour
         HelperFunctions.Log("Pressed");
         objSelectedEvent.Raise();
     }
+
+    
+    
 }

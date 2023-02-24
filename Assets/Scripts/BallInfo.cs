@@ -9,7 +9,13 @@ public class BallInfo
     public string Word { get; set; }
     
     [JsonProperty("Time")] 
-    public Time Time { get; set; }
+    public SoundTimeSpan Time { get; set; }
 
     public Sprite Image { get; set; }
+
+    public override string ToString()
+    {
+        return $"Word: {this.Word}\n" +
+            $"Time: {this.Time}\n";
+    }
 }

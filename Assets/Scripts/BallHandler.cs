@@ -15,6 +15,9 @@ public class BallHandler : MonoBehaviour
     TextAsset ballDataJson;
 
     [SerializeField]
+    AudioSource stageNarration;
+
+    [SerializeField]
     Button playButton;
 
     [SerializeField]
@@ -23,9 +26,9 @@ public class BallHandler : MonoBehaviour
     [SerializeField]
     GameObject[] ballObjects;
 
-    private Queue<BallInfo> _ballQueue = new Queue<BallInfo>();
-
-    public BallInfo DeQueue()
+    private static Queue<BallInfo> _ballQueue;
+    private float clipStartTime = 0;
+    public static BallInfo DeQueue()
     {
         return _ballQueue.Dequeue();
     }
@@ -36,6 +39,8 @@ public class BallHandler : MonoBehaviour
         playButton.gameObject.transform.DOLocalMoveY(-400, _tweenTime);
         foreach(var b in ballObjects)
         {
+            BallObject ball = b.transform.GetComponentInChildren<BallObject>();
+            ball.GetNext();
             b.gameObject.transform.DOLocalMoveX(0, _tweenTime);
             b.gameObject.transform.DOLocalRotate(new Vector3(0, 0, 720), _tweenTime, RotateMode.FastBeyond360);
         }
@@ -43,25 +48,44 @@ public class BallHandler : MonoBehaviour
 
     public void OnObjectSelected()
     {
-        foreach (var b in ballObjects)
+        if (_ballQueue.Count > 0)
         {
-            BallObject ball = b.transform.GetComponentInChildren<BallObject>();
-            b.gameObject.transform.DOLocalRotate(new Vector3(0, 0, 720), _tweenTime, RotateMode.FastBeyond360);
-            b.gameObject.transform.DOLocalMoveX(ball.InitialPosition.x, _tweenTime).OnComplete(
-                () => 
-                {
-                    b.gameObject.transform.DOLocalMoveX(0, _tweenTime / 2);
-                    RollOut(ball);
-                    
-                });
-            ball.GetNext();
+            foreach (var b in ballObjects)
+            {
+                BallObject ball = b.transform.GetComponentInChildren<BallObject>();
+                b.gameObject.transform.DOLocalRotate(new Vector3(0, 0, 720), _tweenTime, RotateMode.FastBeyond360);
+                b.gameObject.transform.DOLocalMoveX(ball.InitialPosition.x, _tweenTime).OnComplete(
+                    () =>
+                    {
+                        //b.gameObject.transform.DOLocalMoveX(0, _tweenTime / 2);
+                        RollOut();
+
+                    });
+                ball.GetNext();
+            }
+        }
+        else
+        {
 
         }
     }
 
     private void Awake()
     {
-        
+        string ballDataFile = ballDataJson.text;
+        List<Stage> stages = JsonConvert.DeserializeObject<List<Stage>>(ballDataFile);
+        List<BallInfo> ballData = new List<BallInfo>();
+        foreach (Stage stage in stages)
+        {
+            HelperFunctions.Log(stage);
+            stage.LoadBallImages();
+            stage.SetStartAudioTime();
+            ballData.AddRange(stage.BallInfo);
+        }
+
+        _ballQueue = new Queue<BallInfo>(ballData);
+       
+
     }
     // Start is called before the first frame update
     void Start()
@@ -72,11 +96,33 @@ public class BallHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(clipStartTime + 1.5f < Time.realtimeSinceStartup && stageNarration.isPlaying)
+        {
+            HelperFunctions.Log("is this every called?");
+            stageNarration.Stop();
+        }
     }
 
-    private void RollOut(BallObject b)
+    private void RollOut()
     {
+        Sequence moveSequence = DOTween.Sequence();
+        Sequence rotSequence = DOTween.Sequence();
+        foreach(var b in ballObjects)
+        {
+            BallObject ball = b.transform.GetComponentInChildren<BallObject>();
+            rotSequence.Append(b.gameObject.transform.DOLocalRotate(new Vector3(0, 0, 720), _tweenTime, RotateMode.FastBeyond360));
+            moveSequence.Append(b.gameObject.transform.DOLocalMoveX(0, _tweenTime).
+                OnComplete(() => PlayAudio(ball)));
+        }
 
+        //moveSequence.OnComplete(() => { stageNarration.Stop(); });
+    }
+
+
+    private void PlayAudio(BallObject b)
+    {
+        stageNarration.time = b.CurrentBallInfo.Time.Start;
+        clipStartTime = Time.realtimeSinceStartup;
+        stageNarration.Play();
     }
 }
